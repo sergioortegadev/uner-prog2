@@ -1,6 +1,7 @@
 import persona
 import cuadrado
 import cuenta_bancaria
+import dado
 print('\n\n   Prog2 - Tp2 - Parte A')
 
 sergio_ortega = persona.Persona('Sergio', 'Ortega')
@@ -74,3 +75,21 @@ print('\n Ejercicio 16.b - extraccion 1500 y saldo')
 print(f'El metodo retorna: {cuenta1.realizar_extraccion(1500)}')
 print(cuenta1.obtener_saldo())
 
+
+# Ejercicio 18
+print('\n Ejercicio 18, crear instancia dado')
+
+dado1 = dado.Dado()
+
+# Ejercicio 19
+print('\n Ejercicio 19')
+print(f'valor antes de tirar: {dado1.obtener_ultimo_valor()}')
+dado1.tirar()
+print(f'valor despues de tirar: {dado1.obtener_ultimo_valor()}')
+
+
+# Ejercicio 20
+print('\n Ejercicio 20')
+print(f'valor antes de tirar: {dado1.obtener_ultimo_valor()}')
+dado1.tirar()
+print(f'valor despues de tirar: {dado1.obtener_ultimo_valor()}')
