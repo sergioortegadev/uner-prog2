@@ -58,6 +58,7 @@ def numeros_impares_juntos(entrada):
       num_concatenados.append(str(digito))
   resultado=",".join(num_concatenados)
   print(resultado)
+  return resultado # agregado después de corregido
      
 numeros_impares_juntos([1, 4, 7, 2, 9, 5])
 numeros_impares_juntos([1, 4, 8, 0])
