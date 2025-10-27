@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>{{page_title}}</title>
+ <style>
+  body {
+   background-color: #222;
+   color: #ccc;
+   font-size: large;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   text-align: center;
+   font-family: sans-serif;
+   margin: 0;
+  }
+
+  main {
+   min-height: 100vh;
+  }
+
+  .botones {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-wrap: wrap;
+   max-width: 100vw;
+   margin: 0 auto;
+  }
+
+  .botones button {
+   background-color: #4d2;
+   color: #222;
+   padding: 1rem;
+   border-radius: .5rem;
+   border: transparent;
+   font-size: large;
+   margin: 1rem 2rem
+  }
+
+  .botones button:hover {
+   scale: .95;
+  }
+
+  footer {
+   width: 100vw;
+   background-color: #444;
+   color: #ddd;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   text-align: left;
+   font-family: Arial, Helvetica, sans-serif;
+   position: sticky;
+   bottom: 0
+  }
+
+  footer li {
+   list-style: none;
+  }
+ </style>
+</head>
+
+<body>
+ <main>
+
+  <pre>
+   <br>
+    ---------------------------------------------
+    ----  Server Status: {{ server_status}}  ----
+    ---------------------------------------------
+ </pre>
+
+  <h3>Estado de Funcionamiento</h3>
+
+  <p>
+   ✅ Servidor funcionando desde :
+
+   <strong>{{ tiempo_funcionamiento }}</strong>
+   <br>
+   (Horas:Minutos:Segundos)
+  </p>
+  <br><br>
+  <h3>Consultas / Endpoints</h3>
+  <div class="botones">
+   <a href="http://localhost:5000/concesionarias/1/">
+    <button>Concesionaria 1</button>
+   </a>
+   <a href="http://localhost:5000/concesionarias/1/clientes/2/total-ventas/">
+    <button>Ventas id 2</button>
+   </a>
+   <a href="http://localhost:5000/concesionarias/1/sucursales/2/vehiculos?estado_id=1">
+    <button>Vehículos estado id 1</button>
+   </a>
+  </div>
+
+ </main>
+ <footer>
+  <h3>Integrantes:</h3>
+  <ul>
+   <li>Ortega, Sergio</li>
+   <li>Ruiz, Jorge</li>
+   <li>Sandoval, Edgardo</li>
+  </ul>
+
+ </footer>
+
+</body>
+
+</html>
