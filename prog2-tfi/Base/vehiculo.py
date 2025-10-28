@@ -50,6 +50,11 @@ class Vehiculo(abc.ABC):
 
     def obtener_estado_id(self):
         return self.__estado_id
+    
+    def __eq__(self, value):
+        if isinstance(value, Vehiculo):
+            return self.__numero_id == value.obtener_numero_id()
+        else: NotImplemented
 
     @abc.abstractmethod
     def __str__(self):

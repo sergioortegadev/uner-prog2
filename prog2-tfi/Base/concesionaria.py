@@ -45,3 +45,14 @@ class Concesionaria:
 
     def obtener_vehiculos(self):
         return self.__vehiculos
+
+    def __eq__(self, value):
+        if isinstance(value, Concesionaria):
+            return self.__numero_id == value.obtener_numero_id()
+        else: NotImplemented
+
+    def __str__(self):
+        data_clientes = ''.join(str(el) for el in self.__clientes)
+        data_sucursales = ''.join(str(el) for el in self.__sucursales)
+        data_vehiculos = ''.join(str(el) for el in self.__vehiculos)
+        return f'Concesionaria nº: {self.__numero_id} - Nombre: "{self.__nombre}"\n   Listado de sucursales:\n{data_sucursales}\n   Listado de clientes:\n{data_clientes}\n   Listado de vehículos:\n{data_vehiculos}\n'
