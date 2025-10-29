@@ -51,6 +51,7 @@ class Vehiculo(abc.ABC):
     def obtener_estado_id(self):
         return self.__estado_id
     
+       # Ejercicio 5
     def __eq__(self, value):
         if isinstance(value, Vehiculo):
             return self.__numero_id == value.obtener_numero_id()

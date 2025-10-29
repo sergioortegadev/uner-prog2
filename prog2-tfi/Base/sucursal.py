@@ -1,4 +1,5 @@
 class Sucursal:
+     # Ejercicio 1
 
   def __init__(self, numero_id, direccion):
     self.__numero_id = numero_id
@@ -11,11 +12,12 @@ class Sucursal:
   def establecerDireccion(self, direccion):
     self.__direccion = direccion
 
-  def agregarVenta(self, venta):
-    pass
+  def agregar_venta(self, venta):
+    self.__ventas.append(venta)
   
-  def removerVenta(self, venta):
-    pass
+  def remover_venta(self, venta):
+    if venta in self.__ventas:
+      self.__ventas.remove(venta)
   
   def obtenerNumeroId(self):
     return self.__numero_id
@@ -26,6 +28,7 @@ class Sucursal:
   def obtenerVentas(self):
     return self.__ventas
   
+     # Ejercicio 5
   def __eq__(self, value):
     if isinstance(value, Sucursal):
       return self.__numero_id == value.obtenerNumeroId()
