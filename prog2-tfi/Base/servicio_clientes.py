@@ -15,7 +15,7 @@ class ServicioClientes:
 
        
         cliente_encontrado = any(
-            cliente.obtenerNumeroId() == id_cliente
+            cliente.obtenerNumeroId() == int(id_cliente)
             for cliente in clientes
         )
         if not cliente_encontrado:
@@ -25,9 +25,9 @@ class ServicioClientes:
 
         
         for sucursal in concesionaria.obtener_sucursales():
-            ventas = sucursal.obtenerVentas()  
+            ventas = sucursal.obtener_ventas()  
             for venta in ventas:
-                if venta.obtenerClienteId() == id_cliente:
+                if venta.obtenerClienteId() == int(id_cliente):
                     total += int(venta.obtenerMonto())
 
         return total

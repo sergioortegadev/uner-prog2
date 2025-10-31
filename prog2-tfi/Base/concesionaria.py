@@ -40,11 +40,26 @@ class Concesionaria:
     def obtener_clientes(self):
         return self.__clientes
 
-    def obtener_sucursales(self):
-        return self.__sucursales
+    def obtener_sucursales(self, id_sucursal=None):
+        if id_sucursal is None:
+            return self.__sucursales
+        id_sucursal = int(id_sucursal)
+        for sucursal in self.__sucursales:
+            if int(sucursal.obtener_numero_id()) == id_sucursal:
+                return sucursal
+        return None
 
-    def obtener_vehiculos(self):
-        return self.__vehiculos
+
+    def obtener_vehiculos(self, id_vehiculo=None):
+        if id_vehiculo is None:
+            return self.__vehiculos
+        
+        id_vehiculo = int(id_vehiculo)
+        for vehiculo in self.__vehiculos:
+            if int(vehiculo.obtener_numero_id()) == id_vehiculo:
+                return vehiculo
+
+        return None
 
    # Ejercicio 5
     def __eq__(self, value):

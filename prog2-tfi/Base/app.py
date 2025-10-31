@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, abort
 import servicio_concesionarias
 import servicio_clientes
 import servicio_vehiculos
@@ -11,22 +11,16 @@ SERVER_START_TIME = time.time() # tiempo inicio server
 @app.route("/", methods=["GET"])
 def index():
     print(f' -> Indicador de tráfico. Time: {time.time()} | Tráfico entrante desde la IP: {request.remote_addr}')
-    titulo = "Mi App de Concesionarias"
-    # 1. Calcular el tiempo transcurrido
+    titulo = "App Concesionarias - Prog2 TFI - UNER"
     tiempo_transcurrido_segundos = time.time() - SERVER_START_TIME
     
-    # 2. Formatear el tiempo a Horas, Minutos y Segundos
-    # Usamos timedelta para un manejo fácil de la conversión de segundos a H:M:S
     td = datetime.timedelta(seconds=int(tiempo_transcurrido_segundos))
     
-    # Formato simple (H:MM:SS)
-    # Por ejemplo, '0:05:30' o '1:10:00'
     tiempo_funcionamiento_formato = str(td) 
 
-    # 3. Renderizar la plantilla, pasando la variable
     return render_template(
         'index.html', 
-        tiempo_funcionamiento=tiempo_funcionamiento_formato, page_title=titulo, server_status="Funciona!"  # <- Variable que usaremos en el HTML
+        tiempo_funcionamiento=tiempo_funcionamiento_formato, page_title=titulo, server_status="Funciona!" 
     )
 
 @app.route("/concesionarias/<concesionaria_id>/", methods=["GET"])
@@ -37,9 +31,15 @@ def obtener_concesionaria(concesionaria_id):
     concesiaria_encontrada = servicio.obtener_por_id(concesionaria_id)
 
     if concesiaria_encontrada is None:
-        flask.abort(404)
+        abort(404)
 
-    return f"<pre>{str(concesiaria_encontrada)}</pre>", 200
+    return render_template(
+    "datos.html",
+    page_title="Concesionaria",
+    titulo_datos=f"Concesionaria con ID {concesionaria_id}",
+    contenido=str(concesiaria_encontrada),
+    ), 200
+
 
 
 @app.route(
@@ -50,11 +50,16 @@ def obtener_total_ventas_de_cliente(concesionaria_id, id_cliente):
 
     servicio = servicio_clientes.ServicioClientes()
 
-    total_ventas = servicio.obtener_total_ventas_por_cliente(
+    total_ventas = servicio.obtenerTotalVentasPorCliente(
         concesionaria_id, id_cliente
     )
 
-    return str(total_ventas), 200
+    return render_template(
+    "datos.html",
+    page_title="Total Ventas",
+    titulo_datos=f"Total de ventas del cliente con ID {id_cliente}",
+    contenido=f"${total_ventas}",
+    ), 200
 
 
 @app.route(
@@ -63,11 +68,11 @@ def obtener_total_ventas_de_cliente(concesionaria_id, id_cliente):
 )
 def obtener_vehiculos(concesionaria_id, sucursal_id):
 
-    estado_id = flask.request.args.get("estado_id")
+    estado_id = int(request.args.get("estado_id"))
 
     servicio = servicio_vehiculos.ServicioVehiculos()
 
-    vehiculos = servicio.obtener_vehiculos_por_sucursal_y_estado(
+    vehiculos = servicio.obtenerVehiculosPorSucursalYEstado(
         concesionaria_id, sucursal_id, estado_id
     )
 
@@ -77,4 +82,12 @@ def obtener_vehiculos(concesionaria_id, sucursal_id):
         str(vehiculo) for vehiculo in vehiculos
     )
 
-    return f"<pre>{texto_respuesta}</pre>", 200
+    texto_respuesta = "\n".join(str(v) for v in vehiculos)
+
+    return render_template(
+        "datos.html",
+        page_title="Vehículos",
+        titulo_datos=f"Vehículos en estado ID {estado_id} – Sucursal {sucursal_id}",
+        contenido=texto_respuesta,
+    ), 200
+
